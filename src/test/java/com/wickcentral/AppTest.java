@@ -26,17 +26,17 @@ public class AppTest {
 
 	@Tag("DEV")
 	@Test
-	void testCalcOne() {
-		System.out.println("======TEST ONE EXECUTED=======");
-		//Assertions.assertEquals(4, Calculator.add(2, 2));
+	void testOne() {
+		System.out.println("====== Test 1 Run =======");
+		//Assertions.assertEquals(4, method);
 	}
 
 	@Tag("PROD")
 	@Disabled
 	@Test
 	void testCalcTwo() {
-		System.out.println("======TEST TWO EXECUTED=======");
-		//Assertions.assertEquals(6, Calculator.add(2, 4));
+		System.out.println("====== Test 2 Run is Disabled =======");
+		//Assertions.assertEquals(6, method);
 	}
 
 	@AfterEach

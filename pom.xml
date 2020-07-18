@@ -11,18 +11,11 @@
 		<java.jdk>1.14</java.jdk>
 		<maven-compiler-plugin-release.version>14</maven-compiler-plugin-release.version>
 		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-		<maven-war-plugin.version>3.2.3</maven-war-plugin.version>
 		<maven-surefire.version>3.0.0-M4</maven-surefire.version>
-		<maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
-		<maven-install-plugin.version>2.5.2</maven-install-plugin.version>
-		<log4j2>2.13.3</log4j2>
 		<junit-jupiter.version>5.6.2</junit-jupiter.version>
-		<apache-commons-lang3.version>3.10</apache-commons-lang3.version>
-		<projectlombok.version>1.18.12</projectlombok.version>
 	</properties>
   
   <dependencies>
-
 
 	<!-- junit testing -->
 	<dependency>
@@ -31,7 +24,6 @@
 		<version>${junit-jupiter.version}</version>
 		<scope>test</scope>
 	</dependency>
-	
 	<dependency>
 		<groupId>org.junit.jupiter</groupId>
 		<artifactId>junit-jupiter-engine</artifactId>
@@ -40,4 +32,25 @@
 	</dependency>
 		
   </dependencies>
+  
+  <build>
+	<pluginManagement>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version>
+				<configuration>
+					<source>${java.jdk}</source>
+					<target>${java.jdk}</target>
+					<release>${maven-compiler-plugin-release.version}</release>
+				</configuration>
+			</plugin>
+				<plugin>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>${maven-surefire.version}</version>
+				</plugin>
+		</plugins>
+	</pluginManagement>
+  </build>
+  
 </project>

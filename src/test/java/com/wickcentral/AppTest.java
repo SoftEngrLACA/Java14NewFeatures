@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit test for simple App.
+ * Unit test
  */
 public class AppTest {
 	

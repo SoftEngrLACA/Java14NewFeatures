@@ -1,14 +1,25 @@
 package main.java.com.wickcentral;
 
-
 /**
- * Hello world!
+ * 
  *
  */
-public class App 
-{
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
-    }
+public class App {
+	
+	public static void main(String[] args) {
+		
+		System.out.println("Hello World!");
+		
+		try {
+			
+			
+		} catch (Exception e)  {
+			System.err.println("Exception: " + e.getLocalizedMessage());
+			e.printStackTrace();
+		} finally {
+			System.out.println("... ParseFoldersFromFile DONE!");
+	    } 
+		
+	}
+	
 }

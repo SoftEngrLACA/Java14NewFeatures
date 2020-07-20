@@ -73,7 +73,9 @@ public class TestSwitchExpressions {
 		Assertions.assertEquals("one, two or three", SwitchExpressions.defaultException(3));
 		
 		Assertions.assertEquals("Number is too low", SwitchExpressions.defaultException(0));
-		Assertions.assertEquals("Number is too low", SwitchExpressions.defaultException(-200));
+		
+		// to throw Exception
+		Assertions.assertEquals("Number is too low", SwitchExpressions.defaultException(200));
 		
 		// Pass Exception Test
 		Assertions.assertThrows(IllegalArgumentException.class, 

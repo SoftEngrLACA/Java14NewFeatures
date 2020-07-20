@@ -29,6 +29,8 @@ public class SwitchExpressions {
 
 	/**
 	 * Use the arrow notation and return a value
+	 * Since enums are used, can skip the default case
+	 * Or an error is shown: A Switch expression should cover all possible values
 	 * @param month Month
 	 * @return String quarter
 	 */
@@ -38,7 +40,7 @@ public class SwitchExpressions {
 			case JANUARY, FEBRUARY, MARCH -> "First quarter";
 			case APRIL, MAY, JUNE -> "Second quarter";
 			case JULY, AUGUST, SEPTEMBER -> "Third quarter";
-			case OCTOBER, NOVEMBER, DECEMBER -> "Fourth quarter";
+			case OCTOBER, NOVEMBER, DECEMBER  -> "Fourth quarter";
 		};
 
 		}
@@ -88,19 +90,21 @@ public class SwitchExpressions {
 	
 	/**
 	 * Enforce exhaustive cases where a compilation error would be thrown if all the input cases aren’t covered
-	 * 
+	 * Default case is needed since no enums are used
+	 * When using the colon (:) operator, need to use yield restricted identifier
+	 * Mixing of different kinds of case statements '->' and  ':' is not allowed within a switch
 	 * @param num
 	 * @return
 	 */
 	public static String defaultException(int num) {
 		return switch (num) {
 		
-			case 1, 2, 3 -> "one, two or three";
+			case 1, 2, 3 : yield "one, two or three";
 			
-			default -> {
+			default : {
 				
 				if (num <= 0) yield "Number is too low";
-				else throw new IllegalArgumentException("Number " + num);
+				else throw new IllegalArgumentException("Number = " + num);
 			}
 		
 		};

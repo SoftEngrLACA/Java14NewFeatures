@@ -40,13 +40,21 @@ public class Record {
 		
 		System.out.println("toString: " + systemRecord.toString() );
 		
-		// violate business logic
-		SystemRecord otherRecord = new SystemRecord(57664,
+		// Create the record with selected parameters
+		SystemRecord sampleRecord2 = new SystemRecord(57664,
+				"MT5510",
+				"B57642G574366");
+		
+		System.out.println("sampleRecord2: " + sampleRecord2.toString() );
+		
+		// Create the record: violate business logic
+		SystemRecord sampleRecord1 = new SystemRecord(57664,
 				null,
 				"x55",
 				"B57642G574366",
 				true
 				);
+		
 	}
 
 	public record SystemRecord (int machineID,
@@ -57,13 +65,21 @@ public class Record {
 			) {
 		
 		/**
-		 * add a Compact Constructor
-		 * for data validation - build a record which is valid in given business context 
+		 * Add a Compact Constructor
+		 * Do data validation - build a record which is valid for a given business context 
 		 */
 		public SystemRecord {
-			if (Objects.isNull(machineType) || Objects.isNull(machineName) || Objects.isNull(serialNum)) {
-				throw new IllegalArgumentException("Invalid system info. Check input values " + this.toString());
-			}
+			Objects.requireNonNull(machineID, "Machine ID is required.");
+			Objects.requireNonNull(machineType, "Machine type is required.");
+			Objects.requireNonNull(serialNum, "Serial number is required.");
+		}
+		
+		// Declare a constructor with parameters
+		public SystemRecord (int machineID,
+				String machineType,
+				String serialNum) {
+				this(machineID, machineType, "NA", serialNum, false);
+			
 		}
 	
 	}

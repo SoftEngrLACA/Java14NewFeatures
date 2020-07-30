@@ -1,5 +1,6 @@
 # Java14NewFeatures
 
+New features for Java 14 are listed at [Java 14 features](http://openjdk.java.net/projects/jdk/14/).
 Tests are done using Junit Jupiter version 5.6
 
 # New features for Java 14 are explored

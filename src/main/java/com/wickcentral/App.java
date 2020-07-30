@@ -1,4 +1,4 @@
-package main.java.com.wickcentral;
+package com.wickcentral;
 
 /**
  * 

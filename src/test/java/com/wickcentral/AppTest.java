@@ -1,4 +1,4 @@
-package test.java.com.wickcentral;
+package com.wickcentral;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;

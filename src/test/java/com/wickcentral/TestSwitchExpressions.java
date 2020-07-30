@@ -1,4 +1,4 @@
-package test.java.com.wickcentral;
+package com.wickcentral;
 
 import java.time.Month;
 
@@ -8,8 +8,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import main.java.com.wickcentral.SwitchExpressions;
 
 public class TestSwitchExpressions {
 	

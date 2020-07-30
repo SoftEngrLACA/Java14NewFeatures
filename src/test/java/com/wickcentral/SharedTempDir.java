@@ -1,4 +1,4 @@
-package test.java.com.wickcentral;
+package com.wickcentral;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertLinesMatch;

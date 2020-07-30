@@ -17,7 +17,7 @@ public class BufferedImageHandler {
 		// write it to byte array in-memory for image format
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 		if (!ImageIO.write(bufferedImage, imageFormatName, outStream)) {
-			throw new IOException("Wirting image '" + imageFile.getAbsolutePath() + "' caused exception");
+			throw new IOException("Writing image '" + imageFile.getAbsolutePath() + "' caused exception");
 		}
 		byte[] jpgBytArray = outStream.toByteArray();
 		

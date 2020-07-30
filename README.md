@@ -1,11 +1,16 @@
 # Java14NewFeatures
 
-Tests are done using Junit Jupiter version 5.6
+New features for Java 14 are listed at [Java 14 features](http://openjdk.java.net/projects/jdk/14/).
+
+Note: Some features might not be unique to Java 14. They are build in Java 14 environment.
 
 # New features for Java 14 are explored
 
-  - A select list of new features for Java 14
+  - Switch Expressions
+  - Record - a preview language feature
+  
   - Tests are done using Junit Jupiter version 5.6
+  - How to use the Junit shared temporary directory
 
 ### Installation
 

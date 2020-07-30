@@ -2,7 +2,7 @@
 
 New features for Java 14 are listed at [Java 14 features](http://openjdk.java.net/projects/jdk/14/).
 
-
+Note: Some features might not be unique to Java 14. They are build in Java 14 environment.
 
 # New features for Java 14 are explored
 

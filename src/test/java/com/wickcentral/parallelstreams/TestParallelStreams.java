@@ -21,22 +21,20 @@ class TestParallelStreams {
 	
 	@BeforeAll
 	static void setup() {
-		System.out.println("@BeforeAll executed");
+		
+		// in
 		sourceImageFile = new File("P:/TestJavaAppz/ParallelStreams/input/sharks_jpeg2.jpg");
-		resultImageFile = new File("P:/TestJavaAppz/ParallelStreams/output/sharks_output");
-		imageFormatName = "jpg";
-	}
-
-	@BeforeEach
-	void setupThis() {
-		System.out.println("@BeforeEach executed");
+		
+		// out
+		imageFormatName = "png";
+		resultImageFile = new File("P:/TestJavaAppz/ParallelStreams/output/sharks_output.png");
+		
 	}
 
 	@DisplayName("Export Image To File")
 	@Tag("DEV")
 	@Test
 	void testExportImageToFile() {
-		System.out.println("====== Test 1 Run =======");
 		
 		try {
 			
@@ -48,14 +46,8 @@ class TestParallelStreams {
 		}
 	}
 
-	@AfterEach
-	void tearThis() {
-		System.out.println("@AfterEach executed");
-	}
-
 	@AfterAll
 	static void tear() {
-		System.out.println("@AfterAll executed");
 		sourceImageFile = resultImageFile = null;
 	}
 

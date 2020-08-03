@@ -6,12 +6,12 @@ import java.io.File;
 import java.io.IOException;
 
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+
+import com.wickcentral.utils.images.BufferedImageHandler;
 
 class TestParallelStreams {
 

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Properties>
+        <Property name="PATTERN">%-5level %d [%t] %c:%M(%L): %m%ex%n</Property>
+    </Properties>
+	<Appenders>
+		<!--  <RandomAccessFile name="fileWriter"
+			immediateFlush="true" append="true" fileName="${sys:logfile.name}">
+			<PatternLayout pattern="${PATTERN}" />
+		</RandomAccessFile> -->
+		
+		<RollingFile name="rollingfile" fileName="${sys:logFilename}"
+		filePattern="${sys:logFilename}_%d{yyyy-MM-dd}.log">
+			<PatternLayout pattern="${PATTERN}" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+			</Policies>
+		</RollingFile>
+		
+		<Console name="consoleWriter">
+			<PatternLayout pattern="${PATTERN}" />
+		</Console>
+	</Appenders>
+    
+    <Loggers>
+        <Root level="ALL" additivity="false">
+            <AppenderRef ref="rollingfile"/>
+        </Root>
+    </Loggers>
+</Configuration>

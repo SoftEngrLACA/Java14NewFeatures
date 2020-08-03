@@ -1,4 +1,4 @@
-package com.wickcentral.parallelstreams;
+package com.wickcentral.utils.images;
 
 import java.util.Arrays;
 import java.util.Iterator;

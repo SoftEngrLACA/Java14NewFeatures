@@ -1,4 +1,4 @@
-package com.wickcentral.parallelstreams;
+package com.wickcentral.utils.images;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

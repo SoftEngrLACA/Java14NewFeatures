@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 
 public class BufferedImageHandler {
 	
-	public static boolean exportImageToFile(File sourceImageFile, File resultImageFile, String imageFormatName) 
+	public static final boolean exportImageToFile(File sourceImageFile, File resultImageFile, String imageFormatName) 
 			throws IOException {
 
 		try (FileInputStream inputStream = new FileInputStream(sourceImageFile)) {

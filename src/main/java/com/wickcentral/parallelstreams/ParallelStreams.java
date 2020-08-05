@@ -13,6 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.wickcentral.parallelstreams.ImageFile.ImageFileRecord;
+import com.wickcentral.utils.datatime.TimeUtils;
 import com.wickcentral.utils.images.BufferedImageHandler;
 
 public class ParallelStreams {
@@ -20,11 +21,17 @@ public class ParallelStreams {
 	private static final String LOG_FILE = "P:\\TestJavaAppz\\ParallelStreams\\output\\app.log";
 	private static final int PARALLELISM = 4;
 	private static Logger log;
-
 	
+	/**
+	 * Uses nanosecond: defined as one thousandth of a microsecond, a microsecond as one thousandth of a millisecond,
+	 * a millisecond as one thousandth of a second, a minute as sixty seconds, an hour as sixty minutes, and a day as twenty four hours.
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 
 		StringBuilder logMessages = new StringBuilder("Input args\n");
+		long start;
 		
 		try {
 			
@@ -39,11 +46,15 @@ public class ParallelStreams {
 	        com.wickcentral.utils.images.ImageFormats.getImageFormats();
 	        
 	        List<ImageFileRecord> imageRecords = getImageData();
-	        
-	        //changeFormatWithDefaultForkJoinPool(imageRecords);
-	        
+			
+			start = System.nanoTime();
 	        changeFormatWithCustomThreadPool(imageRecords, PARALLELISM);
+			log.info("Duration for CustomThreadPool: " + TimeUtils.timeElapsedInMilliSeconds( (System.nanoTime() - start) ) );
 
+			start = System.nanoTime();
+	        changeFormatWithDefaultForkJoinPool(imageRecords);
+	        log.info("Duration for DefaultForkJoinPool: " + TimeUtils.timeElapsedInMilliSeconds( (System.nanoTime() - start) ) );
+			
 			
 		} catch (Exception e)  {
 			System.err.println("Exception: " + e.getLocalizedMessage());
@@ -69,8 +80,6 @@ public class ParallelStreams {
 	private static void changeFormatWithCustomThreadPool(List<ImageFileRecord> imageRecords, int parallelism) 
 			throws InterruptedException, ExecutionException {
 		
-		long start = System.currentTimeMillis();
-		
 		ForkJoinPool forkPool = new ForkJoinPool(parallelism);
 		
 		forkPool.submit(
@@ -95,9 +104,8 @@ public class ParallelStreams {
 		
 		forkPool.shutdown();
 		
-		log.info("Duration: " + (System.currentTimeMillis() - start) );
-		
 	}
+
 	
 	private static void changeFormatWithDefaultForkJoinPool(List<ImageFileRecord> imageRecords) {
         // default ForkJoinPool

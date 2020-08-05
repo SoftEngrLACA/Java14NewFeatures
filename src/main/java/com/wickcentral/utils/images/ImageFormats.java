@@ -9,7 +9,7 @@ import javax.imageio.spi.ImageWriterSpi;
 
 public class ImageFormats {
 
-	public static void getImageFormats() {
+	public static final void getImageFormats() {
 
 		IIORegistry registry = IIORegistry.getDefaultInstance();
 		Iterator<ImageWriterSpi> serviceProviders = registry.getServiceProviders(ImageWriterSpi.class, false);

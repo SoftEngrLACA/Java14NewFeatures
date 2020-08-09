@@ -2,12 +2,16 @@ package com.wickcentral.parallelstreams;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
+import java.util.stream.Stream;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,7 +23,9 @@ import com.wickcentral.utils.images.BufferedImageHandler;
 public class ParallelStreams {
 
 	private static final String LOG_FILE = "P:\\TestJavaAppz\\ParallelStreams\\output\\app.log";
-	private static final int PARALLELISM = 4;
+	private static final String IMAGE_FOLDERS[] = {"1_04_images", "2_13_images"};
+	private static final String DESTIN_PREFIX = "P:/TestJavaAppz/ParallelStreams/output/";
+
 	private static Logger log;
 	
 	/**
@@ -31,6 +37,7 @@ public class ParallelStreams {
 	public static void main(String[] args) {
 
 		StringBuilder logMessages = new StringBuilder("Input args\n");
+		StringBuilder performMessages = new StringBuilder("Compare Performance:\n");
 		long start;
 		
 		try {
@@ -42,19 +49,46 @@ public class ParallelStreams {
 	        log = LogManager.getLogger(ParallelStreams.class);
 	        
 	        log.info(LocalDateTime.now().format(DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm:ss a"))+ "\n");
-		    
-	        com.wickcentral.utils.images.ImageFormats.getImageFormats();
 	        
-	        List<ImageFileRecord> imageRecords = getImageData();
-			
-			start = System.nanoTime();
-	        changeFormatWithCustomThreadPool(imageRecords, PARALLELISM);
-			log.info("Duration for CustomThreadPool: " + TimeUtils.timeElapsedInMilliSeconds( (System.nanoTime() - start) ) );
-
-			start = System.nanoTime();
-	        changeFormatWithDefaultForkJoinPool(imageRecords);
-	        log.info("Duration for DefaultForkJoinPool: " + TimeUtils.timeElapsedInMilliSeconds( (System.nanoTime() - start) ) );
-			
+	        int cores = Runtime.getRuntime().availableProcessors();
+	        log.info("Number of logical threads: " + cores);
+	        
+	        for (String imageDir : IMAGE_FOLDERS) {
+	        	
+	        	logMessages.append("imageDir: " + imageDir);
+	        	
+	        	// create destination folders
+	        	Files.createDirectories(Paths.get(DESTIN_PREFIX + imageDir));
+	        	
+		        List<ImageFileRecord> imageRecords = getImageData(imageDir);
+		        
+		        String mssg = "For folder " + imageDir + " image records: " + imageRecords.size();
+		        performMessages.append(mssg).append("\n");
+		        
+		        mssg = "Custom Thread Pool: ";
+		        logMessages.append(mssg);
+		        performMessages.append(mssg);
+		        
+				start = System.nanoTime();
+		        changeFormatWithCustomThreadPool(imageRecords, cores);
+		        mssg = "Duration: " + TimeUtils.timeElapsedInMilliSeconds( (System.nanoTime() - start) ) ;
+				performMessages.append(mssg).append("\n");
+				
+				mssg = "Default ForkJoin Pool: ";
+				logMessages.append(mssg);
+				performMessages.append(mssg);
+				
+				start = System.nanoTime();
+		        changeFormatWithDefaultForkJoinPool(imageRecords);
+		        mssg = "Duration: " + TimeUtils.timeElapsedInMilliSeconds( (System.nanoTime() - start) ) ;
+		        performMessages.append(mssg).append("\n");
+				
+				performMessages.append("\n");
+				
+	        }
+	        
+	        // Create basic dashboard
+	        log.info(performMessages);
 			
 		} catch (Exception e)  {
 			System.err.println("Exception: " + e.getLocalizedMessage());
@@ -64,7 +98,6 @@ public class ParallelStreams {
 		} finally {
 			System.out.println("... ParallelStreams DONE!");
 		}
-	
 
 	}
 	
@@ -136,7 +169,58 @@ Sample output:
 		 */
 	}
 	
+	private static List<ImageFileRecord> getImageData(String imageSubDir) throws IOException {
+        
+		String srcPrefix = "P:/TestJavaAppz/ParallelStreams/input/";
+
+        final String IMAGE_FORMATS[] = {"PNG", "BMP", "TIFF", "GIF"};
+
+        List<ImageFileRecord> imageRecords = new ArrayList<>();
+        
+        Path srcDir = Paths.get(srcPrefix, imageSubDir);
+        Path destinDir = Paths.get(DESTIN_PREFIX, imageSubDir);
+		
+        try (Stream<Path> paths = Files.walk(srcDir)) {
+            paths.filter(Files::isRegularFile)
+            	.forEach(path -> {
+//            		System.out.println("File name: " + path.getFileName().toString());
+//            		//Aayla Secura_wallpaper.jpg
+//            		System.out.println("File Parent: " + path.getParent());
+//            		System.out.println("File AbsolutePath: " + path.toAbsolutePath() );
+//            		// P:\TestJavaAppz\ParallelStreams\input\1_04_images\Aayla Secura_wallpaper.jpg
+
+            		for (String format : IMAGE_FORMATS) {
+                		imageRecords.add(buildImageFileRecord(path, destinDir, format));
+            		}
+            	});
+        }
+        
+        return imageRecords;
+	}
 	
+	private static ImageFileRecord buildImageFileRecord(Path srcDir, Path destinDir, String format) {
+		ImageFileRecord imageFileRecord;
+		// replace file ext with lowercase of format
+		String fileNameNoExt = getOnlyFileNameWithoutExtension(srcDir.getFileName().toString());
+		Path destinFile = Paths.get(destinDir.toString(), (fileNameNoExt.concat(".").concat(format.toLowerCase()) ) );
+		// add Data
+		imageFileRecord = new ImageFileRecord(
+				new File(srcDir.toAbsolutePath().toString()), 
+				new File(destinFile.toString()), 
+				format);
+		return imageFileRecord;
+	}
+	
+	private final static String getOnlyFileNameWithoutExtension (String filePathAndName) {
+
+        String onlyFileName = new File(filePathAndName).getName();
+        int pos = onlyFileName.lastIndexOf(".");
+        if (pos > 0) {
+            return onlyFileName.substring(0, pos);
+        }
+        else return onlyFileName;
+    } // getOnlyFileNameWithoutExtension
+    
 	private static List<ImageFileRecord> getImageData() {
 		
 		List<ImageFileRecord> imageRecords = new ArrayList<>();

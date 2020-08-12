@@ -183,12 +183,6 @@ Sample output:
         try (Stream<Path> paths = Files.walk(srcDir)) {
             paths.filter(Files::isRegularFile)
             	.forEach(path -> {
-//            		System.out.println("File name: " + path.getFileName().toString());
-//            		//Aayla Secura_wallpaper.jpg
-//            		System.out.println("File Parent: " + path.getParent());
-//            		System.out.println("File AbsolutePath: " + path.toAbsolutePath() );
-//            		// P:\TestJavaAppz\ParallelStreams\input\1_04_images\Aayla Secura_wallpaper.jpg
-
             		for (String format : IMAGE_FORMATS) {
                 		imageRecords.add(buildImageFileRecord(path, destinDir, format));
             		}

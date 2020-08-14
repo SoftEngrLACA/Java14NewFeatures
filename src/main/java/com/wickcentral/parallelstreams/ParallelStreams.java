@@ -23,6 +23,9 @@ import com.wickcentral.utils.images.BufferedImageHandler;
 public class ParallelStreams {
 
 	private static final String LOG_FILE = "P:\\TestJavaAppz\\ParallelStreams\\output\\app.log";
+    
+	private static final String SRC_ROOT_DIR = "P:/TestJavaAppz/ParallelStreams/input/";
+
 	private static final String IMAGE_FOLDERS[] = {"1_04_images", "2_13_images"};
 	private static final String DESTIN_PREFIX = "P:/TestJavaAppz/ParallelStreams/output/";
 
@@ -57,10 +60,17 @@ public class ParallelStreams {
 	        	
 	        	logMessages.append("imageDir: " + imageDir);
 	        	
+	        	Path srcPath = Paths.get(SRC_ROOT_DIR + imageDir);
+	        	log.info("Source image Dir: " + srcPath);
+	        	
+	        	// Get directory content
+	        	//Files.
+	        	
+	        	
 	        	// create destination folders
 	        	Files.createDirectories(Paths.get(DESTIN_PREFIX + imageDir));
 	        	
-		        List<ImageFileRecord> imageRecords = getImageData(imageDir);
+		        List<ImageFileRecord> imageRecords = getImageData(srcPath, imageDir);
 		        
 		        String mssg = "For folder " + imageDir + " image records: " + imageRecords.size();
 		        performMessages.append(mssg).append("\n");
@@ -169,23 +179,17 @@ Sample output:
 		 */
 	}
 	
-	private static List<ImageFileRecord> getImageData(String imageSubDir) throws IOException {
-        
-		String srcPrefix = "P:/TestJavaAppz/ParallelStreams/input/";
-
-        final String IMAGE_FORMATS[] = {"PNG", "BMP", "TIFF", "GIF"};
+	private static List<ImageFileRecord> getImageData(Path srcDir, String imageSubDir) throws IOException {
 
         List<ImageFileRecord> imageRecords = new ArrayList<>();
         
-        Path srcDir = Paths.get(srcPrefix, imageSubDir);
         Path destinDir = Paths.get(DESTIN_PREFIX, imageSubDir);
 		
         try (Stream<Path> paths = Files.walk(srcDir)) {
             paths.filter(Files::isRegularFile)
             	.forEach(path -> {
-            		for (String format : IMAGE_FORMATS) {
-                		imageRecords.add(buildImageFileRecord(path, destinDir, format));
-            		}
+            		ImageFile.imageFormats().stream()
+            		.forEach(format -> imageRecords.add(buildImageFileRecord(path, destinDir, format)));
             	});
         }
         

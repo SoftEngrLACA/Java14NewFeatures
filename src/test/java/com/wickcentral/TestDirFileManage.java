@@ -31,7 +31,8 @@ class TestDirFileManage {
 
 		 System.out.println("absFilePath: " + absFilePath + " format: " + format);
 		 
-		com.wickcentral.utils.iofile.DirFileManage.getOnlyFiles(dir);
+		 // run for each test, so pull up
+		 com.wickcentral.utils.iofile.DirFileManage.getOnlyFiles(dir);
 		
 		assertEquals(format, "jpg");
 	}

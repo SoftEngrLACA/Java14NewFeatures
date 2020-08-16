@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit Test Template
+ * This is just a template for unit testing 
  */
 public class AppTest {
 

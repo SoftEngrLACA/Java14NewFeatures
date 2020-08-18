@@ -25,15 +25,11 @@ class TestDirFileManage {
 	static void setup() throws IOException {
 
 		// just output only the files in this folder
-		//com.wickcentral.utils.iofile.DirFileManage.getOnlyFiles(IMAGE_DIR_1_04);
-
-		// just output only the files in this folder
 		System.out.println("Output only the files from getListOfOnlyFiles for folder " + IMAGE_DIR_1_04 + ":");
 		DirFileManage.getListOfOnlyFiles(IMAGE_DIR_1_04).forEach(path -> System.out.println(path.toAbsolutePath()));
 		
 		System.out.println("Output only the files from getListOfOnlyFiles for folder " + MULTI_IMAGES_FORMATS + ":");
 		DirFileManage.getListOfOnlyFiles(MULTI_IMAGES_FORMATS).forEach(path -> System.out.println(path.toAbsolutePath()));
-
 		
 	}
 	
@@ -43,39 +39,30 @@ class TestDirFileManage {
 	void testFilePathsWithMultiFormats(String expectedpath, String expectedFormat, List<Path> actualFileList) {
 
 		System.out.println("expectedpath: " + expectedpath + " expectedFormat: " + expectedFormat);
-		
-		final String[] actualVals = new String [2];
 		 
-		 // granular failure messages with a single condition
-		
-		 assertTrue( actualFileList.stream()
-				 .anyMatch(
-					 // condition
-					 path -> expectedpath.equalsIgnoreCase( getAbsolutePath(path) ) 
-					 )
-				 ,
-				 	// failure message
-				 	"Invalid actual path, expectedpath: " + expectedpath//  + ", actualPath: " + actualVals[0]
-				 );
-		 
-		 assertTrue( actualFileList.stream()
-				 .map(path -> actualVals[1] = DirFileManage.getFileExtension(getAbsolutePath(path)))
-				 .anyMatch(
-					 // condition
-						 path -> expectedFormat.equalsIgnoreCase( actualVals[1] ) 
-					 ),
-				 	// failure message
-				 	"Invalid actual format,  expectedFormat: " + expectedFormat + ", actualFormat: " + actualVals[1]
-				 );
+		assertTrue( actualFileList.stream().anyMatch(
+				// condition with combined conditions
+				path -> 
+					expectedpath.equalsIgnoreCase( getAbsolutePath(path) ) &&
+					expectedFormat.equalsIgnoreCase( DirFileManage.getFileExtension(getAbsolutePath(path)) ) 
+				),
+				"Invalid actual path or format" // failure message
+				);
 		
 	}
 	
+	
+	/**
+	 * A parameterized test to pass complex arguments
+	 * Use a method as an argument source
+	 * Name supplied to @MethodSource needs to match an existing method
+	 */	
 	private static Stream<Arguments> provideFilePathsAndMultiFormats() throws IOException {
 		final String DIR_PREFIX = "P:\\TestJavaAppz\\ParallelStreams\\input\\multi_images_formats\\";
 		List<Path> pathsFor_MULTI_IMAGES_FORMATS = DirFileManage.getListOfOnlyFiles(MULTI_IMAGES_FORMATS);
 		return Stream.of(
 				Arguments.of( (DIR_PREFIX + "sharks.bmp"), 			"BMP", pathsFor_MULTI_IMAGES_FORMATS ), // BMP
-				Arguments.of( (DIR_PREFIX + "swfalcon08.gif"), 		"dIF", pathsFor_MULTI_IMAGES_FORMATS ), // GIF
+				Arguments.of( (DIR_PREFIX + "swfalcon08.gif"), 		"GIF", pathsFor_MULTI_IMAGES_FORMATS ), // GIF
 				Arguments.of( (DIR_PREFIX + "swrebel_fleet.png"),	"PNG", pathsFor_MULTI_IMAGES_FORMATS ) // PNG
 				);
 	}

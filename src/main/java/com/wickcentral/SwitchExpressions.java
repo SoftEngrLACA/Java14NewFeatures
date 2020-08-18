@@ -28,7 +28,7 @@ public class SwitchExpressions {
 	}
 
 	/**
-	 * Use the arrow notation and return a value
+	 * Use the arrow notation and return a value, skip yield keyword 
 	 * Since enums are used, can skip the default case
 	 * Or an error is shown: A Switch expression should cover all possible values
 	 * @param month Month
@@ -61,6 +61,7 @@ public class SwitchExpressions {
 	/**
 	 * Uses yield: it is not a new keyword but a restricted identifier
 	 * It can only exist at the end of the case branch
+	 * yield statement transfers control by causing an enclosing switch expression to produce a specified value
 	 * @param month
 	 * @return
 	 */

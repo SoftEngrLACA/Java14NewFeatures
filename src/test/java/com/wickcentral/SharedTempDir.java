@@ -18,8 +18,11 @@ public class SharedTempDir {
 
 	@TempDir
 	static Path sharedTempDir; // To share a temporary directory between test methods: declare the field static
-	// temporary files are actually created in system Temp dir, ex: windows temp
-	// C:\Temp
+	/**
+	 * temporary files are actually created in system Temp dir, ex: windows temp
+	 * On this local system, it is C:\Temp
+	 * In windows command line, type this to find your temp path: set | find /I "temp"
+	 */
 
 	@Test
 	@Order(1)

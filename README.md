@@ -26,9 +26,13 @@ Note: Some features might not be unique to Java 14. They are build in Java 14 en
   - Junit 5 Assumptions
   - ParameterizedTest with placeholders for current invocation index (1-based) and complete & comma-separated arguments list
 
+<br />
+
 ### Installation
 
 This requires [Java 14](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot) to run.
+
+<br /><br />
 
 License
 ----

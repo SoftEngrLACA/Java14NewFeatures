@@ -7,7 +7,7 @@ Note: Some features might not be unique to Java 14. They are build in Java 14 en
 # New features for Java 14 are explored
 
   - [Switch Expressions](#switch-expressions)
-  - Record - a preview language feature
+  - [Record - a preview language feature](#record)
   - [Tests are done using Junit Jupiter version 5.6](#testing-with-junit-5-jupiter)
 
 <br /><br /><br />

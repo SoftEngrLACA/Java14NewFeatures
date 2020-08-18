@@ -40,6 +40,10 @@ Note: Some features might not be unique to Java 14. They are build in Java 14 en
 
 This requires [Java 14](https://adoptopenjdk.net/releases.html?variant=openjdk14&jvmVariant=hotspot) to run.
 
+<br />
+
+More on Java 14 can be found [here](https://blogs.oracle.com/javamagazine/java-14-arrives-with-a-host-of-new-features).
+
 <br /><br />
 
 License

@@ -18,6 +18,13 @@ Note: Some features might not be unique to Java 14. They are build in Java 14 en
   - Use yield instead of break to return values
   - Month Enum is used as an example
 
+### Record
+
+  - This is a preview language feature
+  - SystemRecord class encapsulates the essential data
+  - A compact constructor does data validation - to build a record which is valid for a given business context
+  - A constructor with parameters is also declared
+
 ### Testing with Junit 5 Jupiter
 
   - Parameterized tests with a method source to pass complex arguments

@@ -8,7 +8,7 @@ Note: Some features might not be unique to Java 14. They are build in Java 14 en
 
   - [Switch Expressions](#switch-expressions)
   - Record - a preview language feature
-  - Tests are done using Junit Jupiter version 5.6
+  - [Tests are done using Junit Jupiter version 5.6](#testing-with-junit-5-jupiter)
 
 <br /><br /><br />
 

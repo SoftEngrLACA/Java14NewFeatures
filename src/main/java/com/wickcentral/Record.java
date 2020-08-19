@@ -25,35 +25,58 @@ public class Record {
 	public static void main(String[] args) {
 		
 		// Create the record
-		SystemRecord systemRecord = new SystemRecord(57664,
+		SystemRecord systemRecord1 = new SystemRecord(
+				57664,
 				"MT5510",
 				"x55",
 				"B57642G574366",
+				"John Wick",
 				true
 				);
 		
-		System.out.println("machineID: " + systemRecord.machineID + ", " + 
-				"machineType: " + systemRecord.machineType + ", " +
-				"machineName: " + systemRecord.machineName + ", " +
-				"serialNum: " + systemRecord.serialNum + ", " +
-				"avail: " + systemRecord.avail );
+		System.out.println("machineID: " + systemRecord1.machineID + ", " + 
+				"machineType: " + systemRecord1.machineType + ", " +
+				"machineName: " + systemRecord1.machineName + ", " +
+				"serialNum: " + systemRecord1.serialNum + ", " +
+				"ownerName: " + systemRecord1.ownerName + ", " +
+				"avail: " + systemRecord1.avail );
 		
-		System.out.println("toString: " + systemRecord.toString() );
+		System.out.println("systemRecord1 - all parameters present: " + systemRecord1.toString() );
 		
 		// Create the record with selected parameters
-		SystemRecord sampleRecord2 = new SystemRecord(57664,
+		SystemRecord sampleRecord2 = new SystemRecord(
+				57664,
 				"MT5510",
+				"x55",
 				"B57642G574366");
 		
-		System.out.println("sampleRecord2: " + sampleRecord2.toString() );
+		System.out.println("sampleRecord2 with selected parameters: " + sampleRecord2.toString() );
+		
+		// Create the record: some null parameters, does not violate business logic
+		System.out.println("new record violating business logic: ");
+		SystemRecord sampleRecord3 = new SystemRecord(
+				57664, // machineID
+				"MT5510", // machineType
+				null, // machineName
+				"B57642G574366", // serialNum
+				null, // ownerName
+				true // avail
+				);
+		
+		System.out.println("sampleRecord3 with selected parameters: " + sampleRecord3.toString() );
 		
 		// Create the record: violate business logic
-		SystemRecord sampleRecord1 = new SystemRecord(57664,
-				null,
-				"x55",
-				"B57642G574366",
-				true
+		System.out.println("new record violating business logic: ");
+		SystemRecord sampleRecord4 = new SystemRecord(
+				57664, // machineID
+				null, // machineType - violate business logic
+				null, // machineName
+				"B57642G574366", // serialNum
+				null, // ownerName
+				true // avail
 				);
+		
+		System.out.println("sampleRecord4 with selected parameters: " + sampleRecord4.toString() );
 		
 	}
 
@@ -61,6 +84,7 @@ public class Record {
 			String machineType,
 			String machineName,
 			String serialNum,
+			String ownerName,	// optional
 			boolean avail
 			) {
 		
@@ -77,8 +101,15 @@ public class Record {
 		// Declare a constructor with parameters
 		public SystemRecord (int machineID,
 				String machineType,
+				String machineName,
 				String serialNum) {
-				this(machineID, machineType, "NA", serialNum, false);
+				this(
+						machineID, 
+						machineType, 
+						machineName, 
+						serialNum, 
+						"NA", 		// default owner value
+						false);		// default avail = not avail
 			
 		}
 	
